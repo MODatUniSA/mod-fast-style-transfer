@@ -43,5 +43,7 @@ Time so far: ~2 hours.
 Released under an [MIT License](LICENSE).
 
 Copyright (c) 2017 [MOD.](https://mod.org.au)
+
 Copyright (c) 2016 [Logan Engstrom](https://github.com/lengstrom/fast-style-transfer).
+
 Thanks to [Thom Miano](https://github.com/thommiano) for the original Dockerfile.
