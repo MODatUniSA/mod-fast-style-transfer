@@ -36,7 +36,7 @@ RUN git clone https://github.com/thommiano/udlf_fst_checkpoints.git
 # Note that this is not python 2.7.9, which was the version instructed to use.
 RUN virtualenv -p python2.7 env 
 RUN /bin/bash -c "source env/bin/activate \
-   && pip install scipy pillow tensorflow-gpu ffmpeg-normalize"
+   && pip install scipy pillow tensorflow tensorflow-gpu ffmpeg-normalize"
 
 # Build Anaconda environment
 RUN conda create -n style-transfer python=2.7.9
@@ -44,8 +44,8 @@ RUN /bin/bash -c "source activate style-transfer \
     && conda install -c conda-forge tensorflow=0.11.0 \
     && conda install scipy pillow"
 
-# Run setup.py to extract training code (this is the 13GB download, comment out if wanting to train yourself)
-RUN cd /root/fast-style-transfer/ && sudo ./setup.sh
+# Run setup.py to extract training code (this is the 13GB download)
+# RUN cd /root/fast-style-transfer/ && sudo ./setup.sh
 
 # Make in and out image directories
 RUN mkdir /root/fast-style-transfer/in && mkdir /root/fast-style-transfer/out

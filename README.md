@@ -4,7 +4,7 @@ A [TensorFlow convolutional neural network (CNN) for fast style transfer](https:
 
 ## Setup
 
-Clone this repository. Then run: (Warning: pulls down 13GB of pre-trained data)
+Clone this repository. Then run:
 ```bash
 # Build the docker image
 $ docker build -t fast-style-transfer .
@@ -27,6 +27,12 @@ $ python evaluate.py --checkpoint path/to/style/model.ckpt \
 $ python evaluate.py --checkpoint udlf_fst_checkpoints/scream.ckpt \
   --in-path in/ \
   --out-path out/
+
+# In a new terminal window (don’t exit from the Docker container), copy the output to see what they look like
+$ docker ps
+
+# Then copy the output folder.
+$ docker cp container_name:/root/fast-style-transfer/out .
 ```
 
 ## TODO:
