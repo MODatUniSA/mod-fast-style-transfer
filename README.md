@@ -21,6 +21,9 @@ $ docker run -d -p 5000:5000 fast-style-transfer
 # To attach to that running process, run $ docker ps to get the name.
 $ docker attach container_name
 
+# To create a new shell into that container
+$ docker exec -ti container_name bash
+
 # Setup the environment (if you're using Cuda)
 $ source env/bin/activate
 
