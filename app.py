@@ -36,4 +36,4 @@ class PostImage(Resource):
 api.add_resource(PostImage, '/<string:image_id>')
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(debug=True,host='0.0.0.0')
