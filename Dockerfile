@@ -52,3 +52,11 @@ RUN mkdir /root/fast-style-transfer/in && mkdir /root/fast-style-transfer/out
 
 # Download sample image
 RUN cd /root/fast-style-transfer/in && wget -O mod.jpg https://avatars0.githubusercontent.com/u/25787068
+
+# Setup and run a Flask server
+COPY app.py /root/fast-style-transfer
+COPY requirements.txt /root/fast-style-transfer
+WORKDIR /root/fast-style-transfer
+RUN pip install -r requirements.txt
+ENTRYPOINT ["python"]
+CMD ["app.py"]
