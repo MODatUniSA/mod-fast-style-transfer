@@ -45,7 +45,7 @@ RUN /bin/bash -c "source activate style-transfer \
     && conda install scipy pillow"
 
 # Install out of the virtualenv for no-gpu
-RUN /bin/bash -c "pip install scipy pillow tensoflow"
+RUN /bin/bash -c "pip install scipy pillow tensorflow"
 
 # Run setup.py to extract training code (this is the 13GB download)
 # RUN cd /root/fast-style-transfer/ && sudo ./setup.sh
