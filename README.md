@@ -15,7 +15,13 @@ $ docker images
 # Run the image container
 $ docker run -ti fast-style-transfer
 
-# Setup the environment
+# Run the image in the background
+$ docker run -d -p 5000:5000 fast-style-transfer
+
+# To attach to that running process, run $ docker ps to get the name.
+$ docker attach container_name
+
+# Setup the environment (if you're using Cuda)
 $ source env/bin/activate
 
 # Example style transfer
