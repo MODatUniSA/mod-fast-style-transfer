@@ -2,6 +2,7 @@
 
 from flask import Flask, request
 from flask_restful import Resource, Api, abort
+import base64, subprocess
 
 app = Flask(__name__)
 api = Api(app)
@@ -15,6 +16,7 @@ class HelloMOD(Resource):
 api.add_resource(HelloMOD, '/')
 
 # Simple post - test with $ curl http://localhost:5000/image1 -d "data=Base64_Image_Data" -X PUT
+# Example curl Base64 $ (echo -n "data="; openssl base64 < file.png) | curl http://localhost:5000/image1 -d @- -X PUT
 
 images = {}
 
@@ -28,8 +30,31 @@ class PostImage(Resource):
     return {image_id: images[image_id]}
 
   def put(self, image_id):
-    # TODO: handle Base64 image here, and run it through deep dream
+    # Decode Base64 image
     images[image_id] = request.form['data']
+    decoded_image_data = base64.decodebytes(images[image_id].encode('utf-8'))
+
+    # Save it to the filesystem
+    image_file_path = "in/image{}.png".format(image_id)
+    image_file_out_path = "out/image{}.png".format(image_id)
+    with open(image_file_path, "wb") as f:
+      f.write(decoded_image_data)
+
+    # If ever we need the MIME type
+    # image_mime_type = subprocess.check_output(['file', '--mime', '-b', image_file_path]).decode('utf-8')
+
+    # TODO: run it through deep dream
+    print("Starting to dream...")
+    try:
+      deep_dream_output = subprocess.check_output(['python', 'evaluate.py', '--checkpoint', 'udlf_fst_checkpoints/scream.ckpt', '--in-path', image_file_path, '--out-path', image_file_out_path]).decode('utf-8')
+    except Exception as e:
+      deep_dream_output = e
+      print("PROBLEM!")
+    print(deep_dream_output)
+    print("I've finished dreaming...")
+
+    # TODO: load back the dreamt image
+
     # TODO: return Base64 image back
     return {image_id: images[image_id]}
 
