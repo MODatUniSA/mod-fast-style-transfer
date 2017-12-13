@@ -60,7 +60,7 @@ class PostImage(Resource):
 
     # TODO: load back the dreamt image
     with open(image_file_out_path, "rb") as image_file:
-      encoded_deep_dream_image_string = base64.b64encode(image_file.read())
+      encoded_deep_dream_image_string = base64.b64encode(image_file.read()).decode('utf-8')
 
     # TODO: return Base64 image back
     return {image_id: encoded_deep_dream_image_string}
