@@ -59,9 +59,11 @@ class PostImage(Resource):
     print("I've finished dreaming...")
 
     # TODO: load back the dreamt image
+    with open(image_file_out_path, "rb") as image_file:
+      encoded_deep_dream_image_string = base64.b64encode(image_file.read())
 
     # TODO: return Base64 image back
-    return {image_id: images[image_id]}
+    return {image_id: encoded_deep_dream_image_string}
 
 api.add_resource(PostImage, '/<string:image_id>')
 
