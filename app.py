@@ -32,7 +32,10 @@ class PostImage(Resource):
   def put(self, image_id):
     # Decode Base64 image
     # Handle JSON post from Rails
-    pdb.set_trace()
+
+    # Debugging using pdb
+    # pdb.set_trace()
+    
     images[image_id] = request.get_json()['ios_data']
     decoded_image_data = base64.decodebytes(images[image_id].encode('utf-8'))
 
