@@ -49,9 +49,9 @@ $ docker cp container_name:/root/fast-style-transfer/out .
 * ~~Get the Docker image running locally~~.
 * ~~Generate some sample images~~.
 * Train the network with our own source style.
-* Setup a simple server to handle processing the image and sending it back.
+* ~~Setup a simple server to handle processing the image and sending it back.~~
 
-Time so far: ~2 hours.
+Time so far: ~12 hours.
 
 ## License
 
