@@ -2,7 +2,7 @@
 
 from flask import Flask, request
 from flask_restful import Resource, Api, abort
-import base64, subprocess
+import base64, subprocess, pdb
 
 app = Flask(__name__)
 api = Api(app)
@@ -16,7 +16,7 @@ class HelloMOD(Resource):
 api.add_resource(HelloMOD, '/')
 
 # Simple post - test with $ curl http://localhost:5000/image1 -d "data=Base64_Image_Data" -X PUT
-# Example curl Base64 $ (echo -n "data="; openssl base64 < file.png) | curl http://localhost:5000/image1 -d @- -X PUT
+# Example curl Base64 $ (echo -n '{"ios_data": "'; openssl base64 < file.png; echo '"}') | curl http://localhost:5000/image1 -d @- -H "Content-Type: application/json" -X PUT
 
 images = {}
 
@@ -31,7 +31,9 @@ class PostImage(Resource):
 
   def put(self, image_id):
     # Decode Base64 image
-    images[image_id] = request.form['data']
+    # Handle JSON post from Rails
+    pdb.set_trace()
+    images[image_id] = request.get_json()['ios_data']
     decoded_image_data = base64.decodebytes(images[image_id].encode('utf-8'))
 
     # Save it to the filesystem
