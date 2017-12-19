@@ -8,7 +8,8 @@ FROM kaixhin/cuda-caffe:8.0
 FROM continuumio/miniconda3
 
 # Load the Rails image server app
-FROM ruby:2.4.2
+# FROM ruby:2.4.2
+RUN apt-get update && apt-get install -y ruby
 # RUN apt-get update && apt-get install -y build-essential libpq-dev nodejs
 
 RUN apt-get update && apt-get install -y sudo 
