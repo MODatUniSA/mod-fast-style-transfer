@@ -7,6 +7,10 @@ FROM kaixhin/cuda-caffe:8.0
 #FROM  nvidia/cuda:8.0-cudnn5-runtime-ubuntu16.04
 FROM continuumio/miniconda3
 
+# Load the Rails image server app
+FROM ruby:2.4.2
+# RUN apt-get update && apt-get install -y build-essential libpq-dev nodejs
+
 RUN apt-get update && apt-get install -y sudo 
 
 # Install wget and build-essential
@@ -65,13 +69,9 @@ RUN pip install -r requirements.txt
 # ENTRYPOINT ["python"]
 # CMD ["app.py"]
 
-# Load the Rails image server app
-FROM ruby:2.4.2
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 # Clone image server repo
 RUN cd /root/ && git clone https://github.com/MODatUniSA/mod-image-server.git
-WORKDIR /root/mod-image-server
-RUN bundle install
+RUN cd /root/mod-image-server && bundle install
 # Now running in supervisord
 # ENTRYPOINT ["ruby"]
 # CMD ["rails s -b 0.0.0.0"]
