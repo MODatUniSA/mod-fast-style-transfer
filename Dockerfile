@@ -61,5 +61,23 @@ COPY app.py /root/fast-style-transfer
 COPY requirements.txt /root/fast-style-transfer
 WORKDIR /root/fast-style-transfer
 RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+# Now running in supervisord
+# ENTRYPOINT ["python"]
+# CMD ["app.py"]
+
+# Load the Rails image server app
+FROM ruby:2.4.2
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
+# Clone image server repo
+RUN cd /root/ && git clone https://github.com/MODatUniSA/mod-image-server.git
+WORKDIR /root/mod-image-server
+RUN bundle install
+# Now running in supervisord
+# ENTRYPOINT ["ruby"]
+# CMD ["rails s -b 0.0.0.0"]
+
+# Use supervisord to run the two servers
+RUN apt-get update && apt-get install -y supervisor
+RUN mkdir -p /var/log/supervisor
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+CMD ["/usr/bin/supervisord"]
