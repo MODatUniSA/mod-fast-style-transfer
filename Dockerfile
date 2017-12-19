@@ -9,8 +9,13 @@ FROM continuumio/miniconda3
 
 # Load the Rails image server app
 # FROM ruby:2.4.2
-RUN apt-get update && apt-get install -y ruby
+# RUN apt-get update && apt-get install -y ruby
 # RUN apt-get update && apt-get install -y build-essential libpq-dev nodejs
+# install RVM, Ruby, and Bundler
+RUN \curl -L https://get.rvm.io | bash -s stable
+RUN /bin/bash -l -c "rvm requirements"
+RUN /bin/bash -l -c "rvm install 2.4.2"
+RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 
 RUN apt-get update && apt-get install -y sudo 
 
