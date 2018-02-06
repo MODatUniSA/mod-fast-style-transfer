@@ -16,6 +16,7 @@ RUN gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A170311380
 RUN \curl -L https://get.rvm.io | bash -s stable
 RUN /bin/bash -l -c "rvm requirements"
 RUN /bin/bash -l -c "rvm install 2.4.2"
+# TODO: create a gemset and tell it to use it as the default
 RUN /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
 
 RUN apt-get update && apt-get install -y sudo 
@@ -57,6 +58,8 @@ RUN /bin/bash -c "source activate style-transfer \
 
 # Install out of the virtualenv for no-gpu
 RUN /bin/bash -c "pip install scipy pillow tensorflow"
+# install ffmpeg from imageio.
+RUN python -c "import imageio; imageio.plugins.ffmpeg.download()"
 
 # Run setup.py to extract training code (this is the 13GB download)
 # RUN cd /root/fast-style-transfer/ && sudo ./setup.sh
